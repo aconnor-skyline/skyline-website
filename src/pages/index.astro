@@ -1,0 +1,388 @@
+---
+/**
+ * Home page — single-scroll layout matching the original Wix site:
+ *   1. Hero
+ *   2. Why Choose Skyline (3 cards)
+ *   3. About
+ *   4. Our Service
+ *   5. Contact CTA
+ *
+ * Everything is server-rendered HTML (no client JS) — Astro's static output
+ * means the page is just a fast-loading HTML file with inline CSS.
+ */
+import Base from "../layouts/Base.astro";
+
+const pillars = [
+  {
+    title: "Quality Mobility Solutions",
+    body: "We partner only with vetted, top-tier suppliers — so the providers we recommend hold up to scrutiny long after the contract is signed.",
+    icon: "stars",
+  },
+  {
+    title: "Effortless White-Glove Service",
+    body: "Our process is built to be hassle-free. We do the heavy lifting on supplier discovery, evaluation, and onboarding so your team stays focused.",
+    icon: "sparkle",
+  },
+  {
+    title: "Professional Sales Service",
+    body: "Sales experts guide you from prospecting through close — clear communication, transparent pricing, no surprises.",
+    icon: "briefcase",
+  },
+];
+---
+
+<Base>
+  {/* ─────────────── Hero ─────────────── */}
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>
+        Elevate your <span class="accent">mobility program</span>
+      </h1>
+      <p class="lede">
+        Mobility consulting services tailored to meet your company's needs.
+        We connect you with the best suppliers and strategies in the
+        industry.
+      </p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#services" class="btn btn-ghost">Our services →</a>
+      </div>
+    </div>
+    <div class="hero-skyline" aria-hidden="true">
+      <!-- Subtle city skyline silhouette under the hero copy -->
+      <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <rect x="0"    y="120" width="60"  height="80"  />
+          <rect x="65"   y="80"  width="40"  height="120" />
+          <rect x="110"  y="100" width="35"  height="100" />
+          <rect x="150"  y="60"  width="55"  height="140" />
+          <rect x="210"  y="90"  width="30"  height="110" />
+          <rect x="245"  y="50"  width="70"  height="150" />
+          <rect x="320"  y="100" width="45"  height="100" />
+          <rect x="370"  y="30"  width="50"  height="170" />
+          <rect x="425"  y="80"  width="35"  height="120" />
+          <rect x="465"  y="110" width="60"  height="90"  />
+          <rect x="530"  y="55"  width="65"  height="145" />
+          <rect x="600"  y="90"  width="40"  height="110" />
+          <rect x="645"  y="40"  width="55"  height="160" />
+          <rect x="705"  y="100" width="40"  height="100" />
+          <rect x="750"  y="20"  width="60"  height="180" />
+          <rect x="815"  y="80"  width="40"  height="120" />
+          <rect x="860"  y="100" width="50"  height="100" />
+          <rect x="915"  y="60"  width="60"  height="140" />
+          <rect x="980"  y="90"  width="35"  height="110" />
+          <rect x="1020" y="70"  width="55"  height="130" />
+          <rect x="1080" y="100" width="40"  height="100" />
+          <rect x="1125" y="50"  width="75"  height="150" />
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  {/* ─────────────── Why Choose Skyline ─────────────── */}
+  <section class="pillars">
+    <div class="container">
+      <h2 class="section-title">Why choose Skyline Ventures</h2>
+      <p class="section-sub">
+        Three things every mobility program needs — and what we deliver on
+        every engagement.
+      </p>
+      <div class="pillar-grid">
+        {pillars.map((p) => (
+          <article class="pillar-card">
+            <div class="pillar-icon">
+              {p.icon === "stars" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path d="M12 2l2.39 7.36H22l-6.18 4.5L18.21 22 12 17.27 5.79 22l2.39-8.14L2 9.36h7.61z"/>
+                </svg>
+              )}
+              {p.icon === "sparkle" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path d="M12 3v18M3 12h18M5.5 5.5l13 13M18.5 5.5l-13 13"/>
+                </svg>
+              )}
+              {p.icon === "briefcase" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <rect x="3" y="7" width="18" height="13" rx="2"/>
+                  <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                  <path d="M3 13h18"/>
+                </svg>
+              )}
+            </div>
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─────────────── About ─────────────── */}
+  <section id="about" class="about">
+    <div class="container about-grid">
+      <div>
+        <h2>Relieving stress by connecting you with the best suppliers available.</h2>
+      </div>
+      <div>
+        <p>
+          Skyline Ventures is a mobility consulting firm built on a single
+          principle: every company deserves a mobility program that actually
+          works for them — not a one-size-fits-all package.
+        </p>
+        <p>
+          We take the time to understand your team, your goals, and your
+          constraints. Then we use our network of vetted suppliers to design
+          a program that scales with you.
+        </p>
+        <p>The result is a partnership, not a vendor relationship.</p>
+      </div>
+    </div>
+  </section>
+
+  {/* ─────────────── Our Service ─────────────── */}
+  <section id="services" class="services">
+    <div class="container">
+      <span class="eyebrow">Our service</span>
+      <h2>Helping clients navigate the complex landscape of mobility solutions.</h2>
+      <p class="services-lede">
+        We specialize in strategic supplier partnerships and client-centric
+        guidance — pairing the right providers with your specific needs and
+        managing the relationship end-to-end.
+      </p>
+
+      <div class="service-list">
+        <div class="service-item">
+          <span class="service-num">01</span>
+          <div>
+            <h3>Supplier discovery &amp; vetting</h3>
+            <p>
+              We surface the right suppliers, verify their track record, and
+              negotiate terms that hold up at scale.
+            </p>
+          </div>
+        </div>
+        <div class="service-item">
+          <span class="service-num">02</span>
+          <div>
+            <h3>Program design</h3>
+            <p>
+              Custom mobility programs that fit your headcount, budget, and
+              long-term plan — no template-driven shortcuts.
+            </p>
+          </div>
+        </div>
+        <div class="service-item">
+          <span class="service-num">03</span>
+          <div>
+            <h3>Ongoing partnership</h3>
+            <p>
+              We stay involved past launch — quarterly reviews, supplier
+              accountability, and program iteration as your needs evolve.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─────────────── Contact CTA ─────────────── */}
+  <section id="contact" class="contact">
+    <div class="container contact-inner">
+      <h2>Choose the right mobility suppliers</h2>
+      <p class="contact-lede">
+        Let our knowledgeable consultants take it from here.
+      </p>
+      <div class="contact-card">
+        <div class="contact-row">
+          <span class="contact-label">Email</span>
+          <a href="mailto:contact@theskylineventures.com">
+            contact@theskylineventures.com
+          </a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Location</span>
+          <span>Greater Boston, MA</span>
+        </div>
+        <a href="mailto:contact@theskylineventures.com" class="btn btn-primary contact-cta">
+          Start the conversation →
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ─── Hero ─── */
+  .hero {
+    position: relative;
+    padding: 140px 24px 220px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(96, 128, 255, 0.18), transparent 60%),
+      var(--bg);
+  }
+  .hero-inner { text-align: center; position: relative; z-index: 1; }
+  .accent {
+    background: linear-gradient(120deg, #6080ff 0%, #b8c4ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .lede {
+    max-width: 620px;
+    margin: 0 auto 36px;
+    font-size: 1.15rem;
+    color: var(--fg-muted);
+  }
+  .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 26px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.15s ease;
+  }
+  .btn-primary { background: var(--fg); color: var(--bg); }
+  .btn-primary:hover { transform: translateY(-1px); opacity: 1; }
+  .btn-ghost { color: var(--fg); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--bg-elev); opacity: 1; }
+
+  .hero-skyline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0.18;
+  }
+  .hero-skyline svg { width: 100%; height: 100%; fill: var(--fg); }
+
+  /* ─── Section common ─── */
+  .section-title { text-align: center; margin-bottom: 12px; }
+  .section-sub {
+    text-align: center;
+    max-width: 580px;
+    margin: 0 auto 60px;
+  }
+  .eyebrow {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ─── Pillars ─── */
+  .pillars {
+    background: var(--bg-elev);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .pillar-card {
+    padding: 32px 24px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .pillar-card:hover {
+    border-color: rgba(96, 128, 255, 0.35);
+    transform: translateY(-2px);
+  }
+  .pillar-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(96, 128, 255, 0.12);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .pillar-icon svg { width: 22px; height: 22px; }
+  .pillar-card h3 { margin-bottom: 10px; }
+
+  /* ─── About ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .about-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* ─── Services ─── */
+  .services-lede {
+    max-width: 640px;
+    margin-bottom: 50px;
+    font-size: 1.05rem;
+  }
+  .service-list { display: flex; flex-direction: column; gap: 28px; }
+  .service-item {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+    padding: 24px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .service-num {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+    padding-top: 4px;
+  }
+
+  /* ─── Contact ─── */
+  .contact {
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(96, 128, 255, 0.15), transparent 70%),
+      var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .contact-inner { text-align: center; }
+  .contact-lede {
+    max-width: 520px;
+    margin: 0 auto 36px;
+    font-size: 1.1rem;
+  }
+  .contact-card {
+    max-width: 540px;
+    margin: 0 auto;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .contact-row:last-of-type { border-bottom: none; }
+  .contact-label {
+    color: var(--fg-subtle);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .contact-cta { margin-top: 24px; width: 100%; text-align: center; }
+</style>

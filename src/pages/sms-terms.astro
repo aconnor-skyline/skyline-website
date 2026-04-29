@@ -1,0 +1,94 @@
+---
+/**
+ * SMS Terms — boilerplate that covers consent, message frequency, opt-out,
+ * and carrier disclaimers. Standard A2P 10DLC-style language. Adjust the
+ * "frequency" + "use case" as your actual SMS practice evolves.
+ */
+import Base from "../layouts/Base.astro";
+const lastUpdated = "April 19, 2026";
+---
+
+<Base title="SMS Terms — Skyline Ventures">
+  <section class="legal">
+    <div class="container">
+      <a href="/" class="back-link">← Back to home</a>
+      <h1>SMS Terms &amp; Conditions</h1>
+      <p class="updated">Last updated: {lastUpdated}</p>
+
+      <h2>Consent</h2>
+      <p>
+        By providing your mobile phone number to Skyline Ventures LLC, you
+        agree to receive SMS messages from us related to the consulting
+        services you've requested. Consent is not a condition of any
+        purchase. Message and data rates may apply.
+      </p>
+
+      <h2>Types of messages</h2>
+      <p>
+        We send two kinds of messages: (1) transactional messages directly
+        related to an active engagement (scheduling, document requests,
+        program status), and (2) follow-up messages tied to a specific
+        inquiry you initiated.
+      </p>
+
+      <h2>Message frequency</h2>
+      <p>
+        Frequency varies based on the active engagement. Most clients
+        receive fewer than 4 messages per month outside of an active
+        scheduling window.
+      </p>
+
+      <h2>Opt-out</h2>
+      <p>
+        Reply <strong>STOP</strong> at any time to unsubscribe. Reply
+        <strong>HELP</strong> for assistance. After opting out, you will not
+        receive further messages unless you explicitly opt back in.
+      </p>
+
+      <h2>Carriers</h2>
+      <p>
+        Carriers are not liable for delayed or undelivered messages. Skyline
+        Ventures is not responsible for charges incurred from your wireless
+        carrier.
+      </p>
+
+      <h2>Privacy</h2>
+      <p>
+        Mobile information is treated under our
+        <a href="/privacy">Privacy Policy</a>. We do not sell or share your
+        phone number with unrelated third parties for their marketing
+        purposes.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about these SMS terms? Email
+        <a href="mailto:contact@theskylineventures.com">contact@theskylineventures.com</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { padding-top: 60px; padding-bottom: 80px; }
+  .back-link {
+    display: inline-block;
+    color: var(--fg-muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .back-link:hover { color: var(--fg); opacity: 1; }
+  .updated {
+    color: var(--fg-subtle);
+    font-size: 13px;
+    margin-top: -0.4em;
+    margin-bottom: 2.5em;
+  }
+  .legal h2 {
+    font-size: 1.3rem;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+  }
+  .legal a { color: var(--accent); }
+  .legal a:hover { opacity: 0.7; }
+</style>
