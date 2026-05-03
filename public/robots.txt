@@ -1,0 +1,11 @@
+# Skyline Ventures — robots.txt
+#
+# Allow all reputable crawlers (search engines, AI assistants) full access.
+# We *want* AI/search bots to discover and index our consulting service —
+# blocking them would hurt discoverability with zero upside for a public
+# marketing site.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://theskylineventures.com/sitemap-index.xml

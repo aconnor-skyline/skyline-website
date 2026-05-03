@@ -1,0 +1,115 @@
+---
+/**
+ * /contact route. Exists primarily so old Google search results pointing at
+ * `/contact` (cached from the Wix era) land on a real page instead of a
+ * 404. Renders the same contact card as the home page's #contact section.
+ */
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Contact — Skyline Ventures"
+  description="Get in touch with Skyline Ventures — mobility consulting based in Greater Boston."
+>
+  <section class="contact-page">
+    <div class="container contact-inner">
+      <span class="eyebrow">Contact</span>
+      <h1>Let's start the conversation.</h1>
+      <p class="lede">
+        Tell us about your mobility program. We typically respond within one
+        business day.
+      </p>
+      <div class="contact-card">
+        <div class="contact-row">
+          <span class="contact-label">Email</span>
+          <a href="mailto:contact@theskylineventures.com">
+            contact@theskylineventures.com
+          </a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Location</span>
+          <span>Greater Boston, MA</span>
+        </div>
+        <a
+          href="mailto:contact@theskylineventures.com"
+          class="btn btn-primary contact-cta"
+        >
+          Email us →
+        </a>
+      </div>
+      <p class="back-link-wrap">
+        <a href="/" class="back-link">← Back to home</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-page {
+    background:
+      radial-gradient(
+        ellipse at 50% 0%,
+        rgba(96, 128, 255, 0.18),
+        transparent 60%
+      ),
+      var(--bg);
+    padding-top: 100px;
+    padding-bottom: 120px;
+    min-height: 70vh;
+  }
+  .contact-inner { text-align: center; }
+  .eyebrow {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .lede {
+    max-width: 520px;
+    margin: 0 auto 36px;
+    font-size: 1.1rem;
+  }
+  .contact-card {
+    max-width: 540px;
+    margin: 0 auto;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .contact-row:last-of-type { border-bottom: none; }
+  .contact-label {
+    color: var(--fg-subtle);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 26px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.15s ease;
+  }
+  .btn-primary { background: var(--fg); color: var(--bg); }
+  .btn-primary:hover { transform: translateY(-1px); opacity: 1; }
+  .contact-cta { margin-top: 24px; width: 100%; text-align: center; }
+  .back-link-wrap { margin-top: 28px; }
+  .back-link {
+    color: var(--fg-muted);
+    font-size: 14px;
+  }
+  .back-link:hover { color: var(--fg); opacity: 1; }
+</style>
