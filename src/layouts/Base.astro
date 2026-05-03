@@ -1,11 +1,8 @@
 ---
 /**
- * Site-wide layout. Wraps every page with the same header / footer / global
- * styles so individual pages only need to render their own content.
- *
- * Style philosophy: black background, off-white text, generous whitespace,
- * one accent color (a muted blue from the Wix original). System UI font
- * stack — fast loads, native feel, no webfont CLS.
+ * Site-wide layout. Header is fixed-overlay (sits on top of the hero image,
+ * transparent over photos, picks up a subtle blur as you scroll). Footer
+ * lives on a dark cityscape background to match the Wix-era aesthetic.
  */
 export interface Props {
   title?: string;
@@ -16,8 +13,6 @@ const {
   title = "Skyline Ventures — Mobility Consulting",
   description = "Mobility consulting services tailored to meet your company's needs. Helping clients navigate the complex landscape of mobility solutions.",
 } = Astro.props;
-
-const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -28,7 +23,12 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0c0c0e" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Preconnect to Unsplash so the hero image starts loading before the
+         CSS background-image rule fires. Knocks ~150ms off the largest
+         contentful paint on cold loads. -->
+    <link rel="preconnect" href="https://images.unsplash.com" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -41,23 +41,27 @@ const currentPath = Astro.url.pathname;
       <a href="/" class="brand" aria-label="Skyline Ventures home">
         <svg
           class="brand-mark"
-          viewBox="0 0 32 24"
+          viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
-          <!-- Simplified city skyline icon — 5 rectangles of varying heights -->
-          <rect x="0" y="14" width="4" height="10" />
-          <rect x="5" y="8" width="6" height="16" />
-          <rect x="12" y="11" width="3" height="13" />
-          <rect x="16" y="4" width="7" height="20" />
-          <rect x="24" y="9" width="3" height="15" />
-          <rect x="28" y="13" width="4" height="11" />
+          <!-- Stylized city skyline silhouette -->
+          <g fill="currentColor">
+            <rect x="2"  y="18" width="3" height="14" />
+            <rect x="6"  y="10" width="5" height="22" />
+            <rect x="12" y="14" width="3" height="18" />
+            <rect x="16" y="4"  width="6" height="28" />
+            <rect x="23" y="12" width="3" height="20" />
+            <rect x="27" y="16" width="3" height="16" />
+          </g>
         </svg>
-        <span class="brand-text">Skyline Ventures</span>
+        <span class="brand-text">
+          <span class="brand-primary">SKYLINE</span>
+          <span class="brand-secondary">VENTURES</span>
+        </span>
       </a>
       <nav>
-        <a href="/#services" class:list={[currentPath === "/" && "active"]}>Services</a>
-        <a href="/#about">About</a>
+        <a href="/#services">Mobility Consulting</a>
         <a href="/#contact">Contact</a>
       </nav>
     </header>
@@ -66,31 +70,19 @@ const currentPath = Astro.url.pathname;
       <slot />
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <span>© 2026 Skyline Ventures LLC</span>
-          <span class="dot">·</span>
-          <span>Greater Boston, MA</span>
-        </div>
-        <nav class="footer-nav">
-          <a href="/privacy">Privacy Policy</a>
-          <a href="/sms-terms">SMS Terms</a>
-          <a href="mailto:contact@theskylineventures.com">Contact</a>
-        </nav>
-      </div>
-    </footer>
-
     <style is:global>
       :root {
-        --bg: #0c0c0e;
-        --bg-elev: #15151a;
-        --fg: #f5f5f6;
-        --fg-muted: #a3a3a8;
-        --fg-subtle: #6b6b72;
-        --accent: #6080ff;
-        --border: #25252b;
-        --max-width: 1100px;
+        --bg: #ffffff;
+        --bg-dark: #0a0a0c;
+        --fg-on-light: #0a0a0c;
+        --fg-on-light-muted: #555560;
+        --fg-on-dark: #ffffff;
+        --fg-on-dark-muted: rgba(255, 255, 255, 0.78);
+        --fg-on-dark-subtle: rgba(255, 255, 255, 0.55);
+        --accent: #a78bfa;
+        --border-light: #e7e7ea;
+        --border-dark: rgba(255, 255, 255, 0.15);
+        --max-width: 1200px;
       }
 
       * {
@@ -105,12 +97,12 @@ const currentPath = Astro.url.pathname;
 
       body {
         background: var(--bg);
-        color: var(--fg);
+        color: var(--fg-on-light);
         font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
-          "Helvetica Neue", Arial, sans-serif;
+          "Helvetica Neue", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Inter, system-ui, sans-serif;
         font-size: 16px;
-        line-height: 1.6;
+        line-height: 1.55;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
@@ -118,25 +110,24 @@ const currentPath = Astro.url.pathname;
       h1,
       h2,
       h3 {
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        line-height: 1.15;
-        margin: 0 0 0.5em;
+        font-weight: 400;
+        letter-spacing: -0.015em;
+        line-height: 1.1;
+        margin: 0 0 0.6em;
       }
 
       h1 {
-        font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+        font-size: clamp(2.4rem, 6vw, 4.8rem);
       }
       h2 {
-        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
       }
       h3 {
-        font-size: 1.25rem;
+        font-size: 1.4rem;
       }
 
       p {
         margin: 0 0 1em;
-        color: var(--fg-muted);
       }
 
       a {
@@ -145,7 +136,7 @@ const currentPath = Astro.url.pathname;
         transition: opacity 0.15s ease;
       }
       a:hover {
-        opacity: 0.7;
+        opacity: 0.65;
       }
 
       img,
@@ -154,104 +145,82 @@ const currentPath = Astro.url.pathname;
         display: block;
       }
 
-      section {
-        padding: 80px 24px;
-      }
-
       .container {
         max-width: var(--max-width);
         margin: 0 auto;
+        padding: 0 32px;
       }
 
-      /* Header */
+      /* ─── Header (overlay-style, sits on top of hero photo) ─── */
       .site-header {
-        position: sticky;
+        position: absolute;
         top: 0;
+        left: 0;
+        right: 0;
         z-index: 50;
-        background: rgba(12, 12, 14, 0.85);
-        backdrop-filter: saturate(160%) blur(12px);
-        -webkit-backdrop-filter: saturate(160%) blur(12px);
-        border-bottom: 1px solid var(--border);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 16px 28px;
+        padding: 28px 40px;
+        color: var(--fg-on-dark);
       }
 
       .brand {
         display: flex;
         align-items: center;
-        gap: 10px;
-        font-weight: 700;
-        font-size: 17px;
-        letter-spacing: -0.01em;
+        gap: 14px;
       }
 
       .brand-mark {
-        width: 28px;
-        height: auto;
-        fill: var(--fg);
+        width: 38px;
+        height: 38px;
+        color: var(--fg-on-dark);
+        flex-shrink: 0;
       }
 
       .brand-text {
-        color: var(--fg);
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+      }
+
+      .brand-primary {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        color: var(--fg-on-dark);
+      }
+
+      .brand-secondary {
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.4em;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 4px;
       }
 
       .site-header nav {
         display: flex;
-        gap: 28px;
+        gap: 32px;
         font-size: 14px;
-        color: var(--fg-muted);
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        color: var(--fg-on-dark);
       }
 
-      .site-header nav a:hover {
-        color: var(--fg);
-        opacity: 1;
-      }
-
-      /* Footer */
-      .site-footer {
-        border-top: 1px solid var(--border);
-        padding: 32px 28px;
-        font-size: 13px;
-        color: var(--fg-muted);
-      }
-
-      .footer-inner {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      .footer-brand .dot {
-        margin: 0 8px;
-        color: var(--fg-subtle);
-      }
-
-      .footer-nav {
-        display: flex;
-        gap: 24px;
-      }
-
-      .footer-nav a:hover {
-        color: var(--fg);
-        opacity: 1;
-      }
-
-      @media (max-width: 600px) {
+      @media (max-width: 700px) {
         .site-header {
-          padding: 12px 18px;
+          padding: 18px 22px;
         }
         .site-header nav {
-          gap: 18px;
-          font-size: 13px;
+          gap: 16px;
+          font-size: 12px;
         }
-        section {
-          padding: 60px 18px;
+        .brand-primary {
+          font-size: 15px;
+        }
+        .brand-secondary {
+          font-size: 8px;
         }
       }
     </style>
