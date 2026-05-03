@@ -1,0 +1,15 @@
+{
+  // Cloudflare Workers config for serving the Astro-built static site.
+  //
+  // The Workers Static Assets feature (announced 2024) lets you host pure
+  // HTML/CSS/JS through Workers without writing any server code — `assets`
+  // points at our build output and Cloudflare serves it from the edge.
+  //
+  // No `main` Worker script is needed for a fully static site like this.
+  "name": "skyline-website",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
