@@ -71,16 +71,53 @@ const {
           height="500"
         />
       </a>
-      <nav>
-        <a href="/#features">Life App</a>
-        <a href="/consulting">Mobility Consulting</a>
-        <a href="/#contact">Contact</a>
-      </nav>
+      <!-- Hamburger dropdown nav. Same UX on desktop + mobile — one button,
+           opens a panel with every site link. The `<details>` element gives
+           us native open/close behavior + keyboard support without JS,
+           plus we layer a tiny bit of JS at the bottom of the body to also
+           close it on outside-click. -->
+      <details class="nav-dropdown">
+        <summary aria-label="Open navigation menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <span class="nav-label">Menu</span>
+        </summary>
+        <div class="nav-panel">
+          <a href="/#features">Life App</a>
+          <a href="/consulting">Mobility Consulting</a>
+          <a href="/#contact">Contact</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/sms-terms">SMS Terms</a>
+        </div>
+      </details>
     </header>
 
     <main>
       <slot />
     </main>
+
+    <!-- Tiny script to close the nav dropdown on outside-click + on link
+         tap. Inline + minimal — no framework, no async — runs in <1ms. -->
+    <script>
+      (function () {
+        const dropdown = document.querySelector("details.nav-dropdown");
+        if (!dropdown) return;
+        // Close when clicking outside the dropdown
+        document.addEventListener("click", (event) => {
+          if (!dropdown.contains(event.target)) {
+            dropdown.removeAttribute("open");
+          }
+        });
+        // Close when a nav link is tapped (so the panel doesn't linger
+        // after the page navigates / scrolls to anchor)
+        dropdown.querySelectorAll("a").forEach((a) => {
+          a.addEventListener("click", () => {
+            dropdown.removeAttribute("open");
+          });
+        });
+      })();
+    </script>
 
     <style is:global>
       :root {
@@ -200,30 +237,105 @@ const {
         filter: invert(1);
       }
 
-      .site-header nav {
-        display: flex;
-        gap: 32px;
+      /* ─── Dropdown nav ─── */
+      .nav-dropdown {
+        position: relative;
+      }
+      .nav-dropdown summary {
+        list-style: none; /* hide native disclosure triangle */
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
         font-size: 14px;
-        font-weight: 400;
+        font-weight: 600;
         letter-spacing: 0.02em;
         color: var(--fg-on-dark);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.15s ease, border-color 0.15s ease;
       }
-      body.light-page .site-header nav {
-        /* On light pages the white nav text would be invisible — flip to
-           dark to match the inverted logo. */
+      .nav-dropdown summary::-webkit-details-marker { display: none; }
+      .nav-dropdown summary:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .nav-dropdown summary svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* Light-page header (privacy / sms-terms): swap to dark colors */
+      body.light-page .nav-dropdown summary {
         color: var(--fg-on-light);
+        background: rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.12);
       }
+      body.light-page .nav-dropdown summary:hover {
+        background: rgba(0, 0, 0, 0.09);
+      }
+
+      /* Dropdown panel — anchored to the right under the button */
+      .nav-panel {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        min-width: 220px;
+        background: rgba(15, 15, 18, 0.96);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        z-index: 100;
+        /* Subtle in animation when opening */
+        animation: navDropIn 0.15s ease;
+      }
+      @keyframes navDropIn {
+        from { opacity: 0; transform: translateY(-4px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      .nav-panel a {
+        display: block;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.85);
+        transition: background 0.12s ease, color 0.12s ease;
+      }
+      .nav-panel a:hover {
+        background: rgba(255, 255, 255, 0.07);
+        color: #ffffff;
+        opacity: 1;
+      }
+
+      /* On light pages the dropdown panel itself stays dark — high
+         contrast against any background. */
 
       @media (max-width: 700px) {
         .site-header {
           padding: 18px 22px;
         }
-        .site-header nav {
-          gap: 16px;
-          font-size: 12px;
-        }
+        /* Mobile header logo is much smaller than desktop — at 200px it
+           occupies ~30% of the phone screen vertically and crashes into
+           the centered hero content below. 110px is still bold enough
+           to read but leaves the hero room to breathe. */
         .brand-logo {
-          height: 200px;
+          height: 110px;
+        }
+        /* On mobile, hide the "Menu" word — keep just the icon */
+        .nav-dropdown summary {
+          padding: 10px 12px;
+        }
+        .nav-label {
+          display: none;
         }
       }
     </style>

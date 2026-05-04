@@ -190,6 +190,18 @@ const features = [
     align-items: center;
     padding: 0 48px;
   }
+
+  /* On mobile the absolute-positioned header (Skyline logo) and the
+     centered hero content can collide when both are sized for impact.
+     Switching the hero to top-aligned with explicit padding-top equal
+     to the header's footprint guarantees they never overlap. */
+  @media (max-width: 700px) {
+    .app-hero {
+      align-items: flex-start;
+      padding: 200px 24px 60px;
+      min-height: 100vh;
+    }
+  }
   .app-hero-content {
     max-width: 720px;
   }
