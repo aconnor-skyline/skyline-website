@@ -194,20 +194,23 @@ const features = [
     max-width: 720px;
   }
   .eyebrow {
-    display: inline-block;
+    display: block;
     color: var(--accent);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-bottom: 18px;
+    /* Generous bottom margin so the logo below has clear breathing room
+       and doesn't visually crowd the eyebrow text. */
+    margin: 0 0 36px;
   }
   .life-logo {
-    /* Original PNG is 1024x1024 — display at a hero-appropriate size. */
-    width: clamp(180px, 22vw, 280px);
+    /* Logo trimmed to 515x508 — sized small enough to feel like a brand
+       mark, not a billboard. Eyebrow above it stays readable. */
+    width: clamp(110px, 14vw, 170px);
     height: auto;
     display: block;
-    margin: 0 0 24px;
+    margin: 0 0 32px;
   }
   .app-hero h1 {
     font-size: clamp(3rem, 8vw, 6rem);
