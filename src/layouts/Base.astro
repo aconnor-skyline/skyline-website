@@ -7,11 +7,18 @@
 export interface Props {
   title?: string;
   description?: string;
+  /**
+   * Set to true for pages with a white background (legal pages, etc.) so the
+   * white-on-transparent logo gets inverted to dark via CSS — otherwise it
+   * would be invisible against the white header.
+   */
+  lightHeader?: boolean;
 }
 
 const {
   title = "Skyline Ventures — Mobility Consulting",
   description = "Mobility consulting services tailored to meet your company's needs. Helping clients navigate the complex landscape of mobility solutions.",
+  lightHeader = false,
 } = Astro.props;
 ---
 
@@ -36,29 +43,19 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Skyline Ventures" />
   </head>
-  <body>
+  <body class={lightHeader ? "light-page" : undefined}>
     <header class="site-header">
       <a href="/" class="brand" aria-label="Skyline Ventures home">
-        <svg
-          class="brand-mark"
-          viewBox="0 0 32 32"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <!-- Stylized city skyline silhouette -->
-          <g fill="currentColor">
-            <rect x="2"  y="18" width="3" height="14" />
-            <rect x="6"  y="10" width="5" height="22" />
-            <rect x="12" y="14" width="3" height="18" />
-            <rect x="16" y="4"  width="6" height="28" />
-            <rect x="23" y="12" width="3" height="20" />
-            <rect x="27" y="16" width="3" height="16" />
-          </g>
-        </svg>
-        <span class="brand-text">
-          <span class="brand-primary">SKYLINE</span>
-          <span class="brand-secondary">VENTURES</span>
-        </span>
+        <!-- Official Skyline Ventures logo. Sourced from the Wix-era brand
+             asset and post-processed to a transparent background so it
+             overlays cleanly on hero photos. -->
+        <img
+          src="/images/skyline-logo.png"
+          alt="Skyline Ventures"
+          class="brand-logo"
+          width="500"
+          height="500"
+        />
       </a>
       <nav>
         <a href="/#services">Mobility Consulting</a>
@@ -169,35 +166,22 @@ const {
       .brand {
         display: flex;
         align-items: center;
-        gap: 14px;
       }
 
-      .brand-mark {
-        width: 38px;
-        height: 38px;
-        color: var(--fg-on-dark);
-        flex-shrink: 0;
+      .brand-logo {
+        /* The logo PNG is square (500x500) with skyline + SKYLINE / VENTURES
+           text. Rendered at ~88px gives roughly the same visual weight as
+           the original Wix site. */
+        height: 88px;
+        width: auto;
+        display: block;
+        /* On light-background pages (privacy / sms-terms) the white logo
+           would be invisible. Swap to a dark version via filter only when
+           the body has the `.light-page` class (set per-page where needed). */
       }
-
-      .brand-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1;
-      }
-
-      .brand-primary {
-        font-size: 18px;
-        font-weight: 700;
-        letter-spacing: 0.18em;
-        color: var(--fg-on-dark);
-      }
-
-      .brand-secondary {
-        font-size: 9px;
-        font-weight: 500;
-        letter-spacing: 0.4em;
-        color: rgba(255, 255, 255, 0.7);
-        margin-top: 4px;
+      body.light-page .brand-logo {
+        /* Invert white → black so the logo shows on white legal pages. */
+        filter: invert(1);
       }
 
       .site-header nav {
@@ -208,6 +192,11 @@ const {
         letter-spacing: 0.02em;
         color: var(--fg-on-dark);
       }
+      body.light-page .site-header nav {
+        /* On light pages the white nav text would be invisible — flip to
+           dark to match the inverted logo. */
+        color: var(--fg-on-light);
+      }
 
       @media (max-width: 700px) {
         .site-header {
@@ -217,11 +206,8 @@ const {
           gap: 16px;
           font-size: 12px;
         }
-        .brand-primary {
-          font-size: 15px;
-        }
-        .brand-secondary {
-          font-size: 8px;
+        .brand-logo {
+          height: 64px;
         }
       }
     </style>
