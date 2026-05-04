@@ -59,7 +59,13 @@ const features = [
   >
     <div class="app-hero-content">
       <span class="eyebrow">A Skyline Ventures product</span>
-      <h1>Life App</h1>
+      <img
+        src="/images/life-app-logo.png"
+        alt="Life — by Skyline Ventures"
+        class="life-logo"
+        width="1024"
+        height="1024"
+      />
       <p class="app-hero-sub">
         Your health, habits, and AI assistant —<br />
         all in one place.
@@ -195,6 +201,13 @@ const features = [
     letter-spacing: 0.18em;
     text-transform: uppercase;
     margin-bottom: 18px;
+  }
+  .life-logo {
+    /* Original PNG is 1024x1024 — display at a hero-appropriate size. */
+    width: clamp(180px, 22vw, 280px);
+    height: auto;
+    display: block;
+    margin: 0 0 24px;
   }
   .app-hero h1 {
     font-size: clamp(3rem, 8vw, 6rem);
