@@ -58,14 +58,14 @@ const features = [
     style={`background-image: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.65) 100%), url('${HERO_IMAGE}')`}
   >
     <div class="app-hero-content">
-      <span class="eyebrow">A Skyline Ventures product</span>
       <img
         src="/images/life-app-logo.png"
         alt="Life — by Skyline Ventures"
         class="life-logo"
-        width="1024"
-        height="1024"
+        width="515"
+        height="508"
       />
+      <span class="eyebrow">A Skyline Ventures Product</span>
       <p class="app-hero-sub">
         Your health, habits, and AI assistant —<br />
         all in one place.
@@ -200,17 +200,18 @@ const features = [
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    /* Generous bottom margin so the logo below has clear breathing room
-       and doesn't visually crowd the eyebrow text. */
-    margin: 0 0 36px;
+    /* Sits below the logo — small top margin keeps it tight to the
+       brand mark; bottom margin separates it from the subtitle. */
+    margin: 14px 0 28px;
   }
   .life-logo {
     /* Logo trimmed to 515x508 — sized small enough to feel like a brand
-       mark, not a billboard. Eyebrow above it stays readable. */
+       mark, not a billboard. The eyebrow line ("A Skyline Ventures Product")
+       is rendered DIRECTLY underneath, so margin-bottom is small. */
     width: clamp(110px, 14vw, 170px);
     height: auto;
     display: block;
-    margin: 0 0 32px;
+    margin: 0;
   }
   .app-hero h1 {
     font-size: clamp(3rem, 8vw, 6rem);
