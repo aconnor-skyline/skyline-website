@@ -16,8 +16,8 @@ export interface Props {
 }
 
 const {
-  title = "Skyline Ventures — Mobility Consulting",
-  description = "Mobility consulting services tailored to meet your company's needs. Helping clients navigate the complex landscape of mobility solutions.",
+  title = "Life App — by Skyline Ventures",
+  description = "Your health, habits, and AI assistant — all in one place. The Life App is built by Skyline Ventures for iPhone and Mac.",
   lightHeader = false,
 } = Astro.props;
 ---
@@ -88,7 +88,8 @@ const {
         </summary>
         <div class="nav-panel">
           <a href="/#features">Life App</a>
-          <a href="/consulting">Mobility Consulting</a>
+          {/* Mobility Consulting link hidden — restore when re-launching consulting:
+              <a href="/consulting">Mobility Consulting</a> */}
           <a href="/#contact">Contact</a>
           <a href="/privacy">Privacy Policy</a>
           <a href="/sms-terms">SMS Terms</a>
