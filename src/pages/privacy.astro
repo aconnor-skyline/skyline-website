@@ -55,10 +55,17 @@ const lastUpdated = "April 19, 2026";
 
 <style>
   .legal {
-    padding: 80px 0 120px;
+    /* Top padding clears the absolute-positioned header so the back-link
+       isn't hidden behind the SKYLINE / VENTURES brand mark. */
+    padding: 240px 0 120px;
     background: var(--bg);
     color: var(--fg-on-light);
     min-height: 70vh;
+  }
+  @media (max-width: 700px) {
+    .legal {
+      padding-top: 200px;
+    }
   }
   .back-link {
     display: inline-block;

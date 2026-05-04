@@ -60,16 +60,19 @@ const {
   <body class={lightHeader ? "light-page" : undefined}>
     <header class="site-header">
       <a href="/" class="brand" aria-label="Skyline Ventures home">
-        <!-- Official Skyline Ventures logo. Sourced from the Wix-era brand
-             asset and post-processed to a transparent background so it
-             overlays cleanly on hero photos. -->
+        <!-- Brand mark composed in HTML so we can size SKYLINE and VENTURES
+             independently. The skyline silhouette is the cropped icon-only
+             portion of the original Wix-era logo; SKYLINE / VENTURES are
+             rendered as text below it for full typographic control. -->
         <img
-          src="/images/skyline-logo.png"
-          alt="Skyline Ventures"
-          class="brand-logo"
-          width="500"
-          height="500"
+          src="/images/skyline-icon-only.png"
+          alt=""
+          class="brand-icon"
+          width="303"
+          height="99"
         />
+        <span class="brand-skyline">SKYLINE</span>
+        <span class="brand-ventures">VENTURES</span>
       </a>
       <!-- Hamburger dropdown nav. Same UX on desktop + mobile — one button,
            opens a panel with every site link. The `<details>` element gives
@@ -218,23 +221,47 @@ const {
       }
 
       .brand {
+        /* Stack: skyline icon on top, SKYLINE big, VENTURES below. */
         display: flex;
+        flex-direction: column;
         align-items: center;
+        gap: 6px;
+        line-height: 1;
       }
-
-      .brand-logo {
-        /* The logo PNG is square (500x500) with skyline + SKYLINE / VENTURES
-           text. Sized big to be the dominant focal point of the header. */
-        height: 305px;
-        width: auto;
+      .brand-icon {
+        /* Just the skyline silhouette (cropped from original logo) */
+        width: 220px;
+        height: auto;
         display: block;
-        /* On light-background pages (privacy / sms-terms) the white logo
-           would be invisible. Swap to a dark version via filter only when
-           the body has the `.light-page` class (set per-page where needed). */
       }
-      body.light-page .brand-logo {
-        /* Invert white → black so the logo shows on white legal pages. */
+      .brand-skyline {
+        font-size: 56px;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        color: var(--fg-on-dark);
+        line-height: 1;
+        /* Pull tight against the icon above */
+        margin-top: 4px;
+      }
+      .brand-ventures {
+        /* Bigger than the original tiny VENTURES — about 30% of SKYLINE's
+           size now, vs. the ~15% it was in the original image. */
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.4em;
+        /* Visually align centered under SKYLINE */
+        padding-left: 0.4em;
+        color: var(--fg-on-dark);
+        line-height: 1;
+        opacity: 0.92;
+      }
+      body.light-page .brand-icon {
+        /* Invert white → black so the icon shows on white legal pages. */
         filter: invert(1);
+      }
+      body.light-page .brand-skyline,
+      body.light-page .brand-ventures {
+        color: var(--fg-on-light);
       }
 
       /* ─── Dropdown nav ─── */
@@ -323,12 +350,16 @@ const {
         .site-header {
           padding: 18px 22px;
         }
-        /* Mobile header logo is much smaller than desktop — at 200px it
-           occupies ~30% of the phone screen vertically and crashes into
-           the centered hero content below. 110px is still bold enough
-           to read but leaves the hero room to breathe. */
-        .brand-logo {
-          height: 110px;
+        /* Mobile header brand — proportionally smaller across all parts so
+           the brand doesn't dominate the phone screen. */
+        .brand-icon {
+          width: 130px;
+        }
+        .brand-skyline {
+          font-size: 32px;
+        }
+        .brand-ventures {
+          font-size: 11px;
         }
         /* On mobile, hide the "Menu" word — keep just the icon */
         .nav-dropdown summary {
