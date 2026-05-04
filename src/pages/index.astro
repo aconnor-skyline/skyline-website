@@ -188,7 +188,9 @@ const features = [
     color: var(--fg-on-dark);
     display: flex;
     align-items: center;
-    padding: 0 48px;
+    /* Asymmetric padding (more on bottom) effectively shifts the
+       centered hero content upward by ~half the difference. */
+    padding: 0 48px 90px;
   }
 
   /* On mobile the absolute-positioned header (Skyline logo) and the
@@ -200,7 +202,7 @@ const features = [
   @media (max-width: 700px) {
     .app-hero {
       align-items: flex-start;
-      padding: 105px 24px 60px;
+      padding: 90px 24px 60px;
       min-height: 100vh;
     }
   }
