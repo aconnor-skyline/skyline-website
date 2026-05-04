@@ -1,8 +1,8 @@
 ---
 /**
- * Privacy Policy. Standard SMB consulting boilerplate — covers what data we
- * collect from a contact form / email, how it's used, and a contact for
- * questions. Edit dates / specifics as needed.
+ * Privacy Policy. Text mirrors the Wix-era version verbatim — narrowly
+ * scoped to SMS-based account-security data collection, since that's the
+ * only personal data Skyline Ventures actually handles.
  */
 import Base from "../layouts/Base.astro";
 const lastUpdated = "April 19, 2026";
@@ -15,105 +15,89 @@ const lastUpdated = "April 19, 2026";
       <h1>Privacy Policy</h1>
       <p class="updated">Last updated: {lastUpdated}</p>
 
-      <h2>Who we are</h2>
       <p>
-        Skyline Ventures LLC ("Skyline Ventures," "we," "us," or "our") is a
-        mobility consulting firm based in Greater Boston, Massachusetts. This
-        Privacy Policy explains how we handle information collected through
-        our website and direct communications.
+        Skyline Ventures ("we," "our," "us") collects limited personal
+        information required to provide account security text messages,
+        including phone number, message delivery status, and related
+        account security metadata.
       </p>
 
-      <h2>Information we collect</h2>
-      <p>
-        When you contact us by email or through any form on this site, we
-        collect the information you provide — typically your name, email
-        address, company name, and the content of your message. We do not
-        sell, rent, or trade this information.
-      </p>
-      <p>
-        Our website does not currently use cookies for tracking, advertising,
-        or analytics. Standard server logs may retain anonymous request
-        metadata (IP address, timestamp, user agent) for routine security
-        monitoring. These logs are not linked to identifiable individuals.
-      </p>
-
-      <h2>How we use your information</h2>
+      <h2>How we use data</h2>
       <ul>
-        <li>To respond to your inquiry and provide the consulting services you've requested.</li>
-        <li>To follow up on active engagements and share relevant program updates.</li>
-        <li>To comply with legal obligations.</li>
+        <li>To send one-time security verification codes.</li>
+        <li>To protect account access and sensitive actions.</li>
+        <li>To maintain security logs and prevent fraud.</li>
       </ul>
 
-      <h2>Sharing</h2>
+      <h2>Data sharing</h2>
       <p>
-        We share information only with parties involved in delivering the
-        services you've engaged us for — specifically, vetted suppliers we
-        introduce on your behalf. We never sell your information to third
-        parties. We may disclose information if required by law.
+        We do not sell personal information. We do not share personal
+        information with third parties for marketing. We only share with
+        service providers necessary to deliver messages (for example, SMS
+        infrastructure providers).
       </p>
 
-      <h2>Data retention</h2>
+      <h2>User choices</h2>
       <p>
-        We retain inquiry and engagement information for as long as needed to
-        deliver our services and comply with applicable record-keeping
-        obligations. You can request deletion of your information at any time
-        by emailing us.
-      </p>
-
-      <h2>Your choices</h2>
-      <p>
-        You can request a copy, correction, or deletion of your information
-        by emailing
-        <a href="mailto:contact@theskylineventures.com">contact@theskylineventures.com</a>.
-        We'll respond within a reasonable timeframe.
-      </p>
-
-      <h2>Children's privacy</h2>
-      <p>
-        Our services are intended for businesses, not children. We do not
-        knowingly collect information from anyone under 16.
-      </p>
-
-      <h2>Changes</h2>
-      <p>
-        We may update this policy from time to time. Material changes will be
-        reflected here with an updated "last updated" date.
+        You may disable SMS-based 2FA in account settings. You may opt out
+        of SMS by replying <strong>STOP</strong>.
       </p>
 
       <h2>Contact</h2>
       <p>
-        Questions about this policy? Email
-        <a href="mailto:contact@theskylineventures.com">contact@theskylineventures.com</a>.
+        <a href="mailto:contact@theskylineventures.com">
+          contact@theskylineventures.com
+        </a>
       </p>
     </div>
   </section>
 </Base>
 
 <style>
-  .legal { padding-top: 60px; padding-bottom: 80px; }
+  .legal {
+    padding: 80px 0 120px;
+    background: var(--bg);
+    color: var(--fg-on-light);
+    min-height: 70vh;
+  }
   .back-link {
     display: inline-block;
-    color: var(--fg-muted);
+    color: var(--fg-on-light-muted);
     font-size: 14px;
     margin-bottom: 28px;
   }
-  .back-link:hover { color: var(--fg); opacity: 1; }
+  .back-link:hover { color: var(--fg-on-light); opacity: 1; }
+  .legal h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--fg-on-light);
+    margin: 0 0 8px;
+  }
   .updated {
-    color: var(--fg-subtle);
+    color: var(--fg-on-light-muted);
     font-size: 13px;
-    margin-top: -0.4em;
-    margin-bottom: 2.5em;
+    margin: 0 0 2.5em;
   }
   .legal h2 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--fg-on-light);
     margin-top: 2em;
     margin-bottom: 0.6em;
   }
+  .legal p {
+    color: var(--fg-on-light-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
   .legal ul {
-    color: var(--fg-muted);
+    color: var(--fg-on-light-muted);
     padding-left: 1.4em;
+    line-height: 1.7;
   }
   .legal ul li { margin-bottom: 0.4em; }
-  .legal a { color: var(--accent); }
+  .legal a {
+    color: var(--accent);
+  }
   .legal a:hover { opacity: 0.7; }
 </style>

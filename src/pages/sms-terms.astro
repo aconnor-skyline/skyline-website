@@ -1,8 +1,8 @@
 ---
 /**
- * SMS Terms — boilerplate that covers consent, message frequency, opt-out,
- * and carrier disclaimers. Standard A2P 10DLC-style language. Adjust the
- * "frequency" + "use case" as your actual SMS practice evolves.
+ * SMS Terms & Conditions. Mirrors the Wix-era version verbatim — describes
+ * the "Skyline Ventures Security Alerts" 2FA program (one-time codes for
+ * login and sensitive account actions).
  */
 import Base from "../layouts/Base.astro";
 const lastUpdated = "April 19, 2026";
@@ -15,80 +15,87 @@ const lastUpdated = "April 19, 2026";
       <h1>SMS Terms &amp; Conditions</h1>
       <p class="updated">Last updated: {lastUpdated}</p>
 
-      <h2>Consent</h2>
-      <p>
-        By providing your mobile phone number to Skyline Ventures LLC, you
-        agree to receive SMS messages from us related to the consulting
-        services you've requested. Consent is not a condition of any
-        purchase. Message and data rates may apply.
-      </p>
+      <h2>Program name</h2>
+      <p>Skyline Ventures Security Alerts</p>
 
-      <h2>Types of messages</h2>
+      <h2>Program description</h2>
       <p>
-        We send two kinds of messages: (1) transactional messages directly
-        related to an active engagement (scheduling, document requests,
-        program status), and (2) follow-up messages tied to a specific
-        inquiry you initiated.
+        Users who enable two-step verification receive transactional
+        one-time security codes for login verification and sensitive
+        account actions.
       </p>
 
       <h2>Message frequency</h2>
       <p>
-        Frequency varies based on the active engagement. Most clients
-        receive fewer than 4 messages per month outside of an active
-        scheduling window.
+        Message frequency varies based on account activity and security
+        events.
+      </p>
+
+      <h2>Message and data rates</h2>
+      <p>Message and data rates may apply.</p>
+
+      <h2>Support</h2>
+      <p>
+        Reply <strong>HELP</strong> for help, or contact
+        <a href="mailto:support@theskylineventures.com">
+          support@theskylineventures.com
+        </a>.
       </p>
 
       <h2>Opt-out</h2>
       <p>
-        Reply <strong>STOP</strong> at any time to unsubscribe. Reply
-        <strong>HELP</strong> for assistance. After opting out, you will not
-        receive further messages unless you explicitly opt back in.
+        Reply <strong>STOP</strong> to unsubscribe from SMS messages at
+        any time.
       </p>
 
-      <h2>Carriers</h2>
+      <h2>Consent</h2>
       <p>
-        Carriers are not liable for delayed or undelivered messages. Skyline
-        Ventures is not responsible for charges incurred from your wireless
-        carrier.
-      </p>
-
-      <h2>Privacy</h2>
-      <p>
-        Mobile information is treated under our
-        <a href="/privacy">Privacy Policy</a>. We do not sell or share your
-        phone number with unrelated third parties for their marketing
-        purposes.
-      </p>
-
-      <h2>Contact</h2>
-      <p>
-        Questions about these SMS terms? Email
-        <a href="mailto:contact@theskylineventures.com">contact@theskylineventures.com</a>.
+        Users opt in by enabling two-step verification and providing their
+        mobile number in account settings.
       </p>
     </div>
   </section>
 </Base>
 
 <style>
-  .legal { padding-top: 60px; padding-bottom: 80px; }
+  .legal {
+    padding: 80px 0 120px;
+    background: var(--bg);
+    color: var(--fg-on-light);
+    min-height: 70vh;
+  }
   .back-link {
     display: inline-block;
-    color: var(--fg-muted);
+    color: var(--fg-on-light-muted);
     font-size: 14px;
     margin-bottom: 28px;
   }
-  .back-link:hover { color: var(--fg); opacity: 1; }
+  .back-link:hover { color: var(--fg-on-light); opacity: 1; }
+  .legal h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--fg-on-light);
+    margin: 0 0 8px;
+  }
   .updated {
-    color: var(--fg-subtle);
+    color: var(--fg-on-light-muted);
     font-size: 13px;
-    margin-top: -0.4em;
-    margin-bottom: 2.5em;
+    margin: 0 0 2.5em;
   }
   .legal h2 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--fg-on-light);
     margin-top: 2em;
     margin-bottom: 0.6em;
   }
-  .legal a { color: var(--accent); }
+  .legal p {
+    color: var(--fg-on-light-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .legal a {
+    color: var(--accent);
+  }
   .legal a:hover { opacity: 0.7; }
 </style>
