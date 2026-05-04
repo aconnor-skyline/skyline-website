@@ -1,0 +1,473 @@
+---
+/**
+ * Home page — alternating dark photo / light text sections, mirroring the
+ * original Wix design.
+ *
+ * IMAGES: Currently using Unsplash-hosted cityscape photos. To swap in your
+ * own photos, drop the file into /public/images/ and replace the URL in
+ * the corresponding section's `style` attribute. Examples:
+ *   /public/images/hero.jpg → background-image: url('/images/hero.jpg')
+ *
+ * The CSS gradient overlay sits on top of every photo to keep white text
+ * readable regardless of the source image's brightness.
+ */
+import Base from "../layouts/Base.astro";
+
+// The original photos from the Wix-era site, downloaded from Wix's CDN
+// and committed to public/images/. Served from the same Cloudflare edge
+// as the rest of the site — no third-party requests, no licensing
+// questions, full ownership.
+const IMAGES = {
+  hero: "/images/hero.jpg",       // Dark skyscrapers looking up
+  about: "/images/about.jpg",     // Glass building looking up
+  service: "/images/service.jpg", // Glass building exterior detail
+  footer: "/images/footer.jpg",   // Person at window over city skyline
+};
+
+const pillars = [
+  {
+    title: "Quality Mobility Solutions",
+    body: "Our team partners with premium, vetted, and proven suppliers to provide our clients with the best service to meet their individual needs.",
+  },
+  {
+    title: "Effortless Service",
+    body: "Our white glove service is simple and hassle-free. Provide us with your needs and we will provide you with quality solutions.",
+  },
+  {
+    title: "Professional Sales Service",
+    body: "Our team of sales experts are here to guide you through every step of the sales process. From prospecting to closing, we're here to help.",
+  },
+];
+---
+
+<Base>
+  {/* ─────────────── HERO (full-bleed photo) ─────────────── */}
+  <section class="hero" style={`background-image: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.65) 100%), url('${IMAGES.hero}')`}>
+    <div class="hero-content">
+      <h1>Elevate your<br />mobility program</h1>
+      <p class="hero-sub">
+        Mobility Consulting Services tailored to meet your<br />
+        company's needs.
+      </p>
+    </div>
+    <a href="#why" class="hero-arrow" aria-label="Scroll to next section">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </a>
+  </section>
+
+  {/* ─────────────── WHY CHOOSE (light, split layout) ─────────────── */}
+  <section id="why" class="why">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-heading">
+          <h2>Why Choose<br />Skyline Ventures?</h2>
+        </div>
+        <div class="why-cards">
+          {pillars.map((p) => (
+            <article class="why-card">
+              <div class="why-card-icon" aria-hidden="true">
+                <span class="square outer"></span>
+                <span class="square inner"></span>
+              </div>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─────────────── ABOUT (full-bleed photo) ─────────────── */}
+  <section id="about" class="about" style={`background-image: linear-gradient(180deg, rgba(10,10,12,0.7) 0%, rgba(10,10,12,0.5) 100%), url('${IMAGES.about}')`}>
+    <div class="container about-grid">
+      <div class="about-heading">
+        <h2>About Skyline<br />Ventures</h2>
+        <p class="about-tagline">
+          Relieving stress by connecting you<br />
+          with the best suppliers available
+        </p>
+      </div>
+      <div class="about-body">
+        <div class="about-divider"></div>
+        <p>
+          At Skyline Ventures LLC, we believe that every business deserves
+          to succeed. That's why we offer personalized consulting services
+          to meet the unique needs of each client. Our team of professional
+          consultants are here to help you navigate the supplier selection
+          process and achieve your goals.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ─────────────── OUR SERVICE (full-bleed photo, centered text) ─────────────── */}
+  <section id="services" class="service" style={`background-image: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.55) 100%), url('${IMAGES.service}')`}>
+    <div class="container service-inner">
+      <h2>Our Service</h2>
+      <p>
+        Our consulting services specialize in helping clients navigate the
+        complex landscape of mobility solutions. We have formed strategic
+        partnerships with industry-leading suppliers to ensure each client
+        receives the optimal solution for their unique needs. With our
+        expertise and client-centric approach, we guide you towards the
+        right mobility solution that drives your business forward. Contact
+        us today to learn more and start your journey towards optimized
+        mobility.
+      </p>
+    </div>
+  </section>
+
+  {/* ─────────────── CONSULTING SERVICES (light) ─────────────── */}
+  <section class="consulting">
+    <div class="container">
+      <h2>Consulting Services</h2>
+      <p class="consulting-sub">
+        Choose the right mobility suppliers<br />
+        through our knowledgeable consultants
+      </p>
+    </div>
+  </section>
+
+  {/* ─────────────── CONTACT / FOOTER (full-bleed photo) ─────────────── */}
+  <section id="contact" class="contact-footer" style={`background-image: linear-gradient(180deg, rgba(10,10,12,0.7) 0%, rgba(10,10,12,0.85) 100%), url('${IMAGES.footer}')`}>
+    <div class="container contact-grid">
+      <div class="contact-brand">
+        <h2>Skyline Ventures</h2>
+        <p class="contact-tag">Mobility Consulting</p>
+      </div>
+      <div class="contact-info">
+        <div class="contact-block">
+          <h3>Contact Info</h3>
+          <a href="mailto:contact@theskylineventures.com">
+            contact@theskylineventures.com
+          </a>
+        </div>
+        <div class="contact-block">
+          <h3>Address</h3>
+          <p>Greater Boston, MA</p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-bottom container">
+      <span>© 2026 Skyline Ventures LLC</span>
+      <nav>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/sms-terms">SMS Terms</a>
+      </nav>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ───────────── HERO ───────────── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--fg-on-dark);
+    display: flex;
+    align-items: center;
+    padding: 0 48px;
+  }
+  .hero-content {
+    max-width: 720px;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 28px;
+    color: var(--fg-on-dark);
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    color: var(--fg-on-dark-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .hero-arrow {
+    position: absolute;
+    bottom: 48px;
+    left: 80px;
+    width: 28px;
+    height: 28px;
+    color: var(--fg-on-dark);
+    opacity: 0.85;
+  }
+  .hero-arrow svg {
+    width: 100%;
+    height: 100%;
+    animation: bounce 2.4s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ───────────── WHY CHOOSE ───────────── */
+  .why {
+    background: var(--bg);
+    padding: 140px 0;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .why-heading h2 {
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--fg-on-light);
+    margin: 0;
+  }
+  .why-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px 64px;
+  }
+  .why-card {
+    /* Each card is just a small icon + heading + paragraph */
+  }
+  .why-card-icon {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 22px;
+  }
+  /* Two layered squares — outer outlined, inner filled with the purple
+     accent. Mirrors the small badge style from the original Wix cards. */
+  .why-card-icon .square {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+  .why-card-icon .outer {
+    top: 0;
+    left: 0;
+    border: 1.5px solid var(--fg-on-light);
+    background: transparent;
+  }
+  .why-card-icon .inner {
+    bottom: 0;
+    right: 0;
+    background: var(--accent);
+  }
+  .why-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+    color: var(--fg-on-light);
+  }
+  .why-card p {
+    color: var(--fg-on-light-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 920px) {
+    .why-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .why-cards {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+
+  /* ───────────── ABOUT (photo bg) ───────────── */
+  .about {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--fg-on-dark);
+    padding: 160px 0;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .about-heading h2 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 400;
+    color: var(--fg-on-dark);
+    margin: 0 0 24px;
+    line-height: 1.05;
+  }
+  .about-tagline {
+    color: var(--fg-on-dark-muted);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .about-body {
+    padding-top: 80px;
+  }
+  .about-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.35);
+    margin-bottom: 28px;
+    max-width: 320px;
+  }
+  .about-body p {
+    color: var(--fg-on-dark-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  @media (max-width: 920px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .about-body {
+      padding-top: 0;
+    }
+  }
+
+  /* ───────────── OUR SERVICE (photo bg, centered) ───────────── */
+  .service {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--fg-on-dark);
+    padding: 140px 0;
+  }
+  .service-inner {
+    text-align: center;
+    max-width: 760px;
+  }
+  .service h2 {
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 400;
+    color: var(--fg-on-dark);
+    margin: 0 0 32px;
+  }
+  .service p {
+    color: var(--fg-on-dark-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0 auto;
+    max-width: 620px;
+  }
+
+  /* ───────────── CONSULTING SERVICES (light) ───────────── */
+  .consulting {
+    background: var(--bg);
+    padding: 140px 0;
+  }
+  .consulting h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    color: var(--fg-on-light);
+    margin: 0 0 18px;
+  }
+  .consulting-sub {
+    font-size: 1.05rem;
+    color: var(--fg-on-light-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ───────────── CONTACT / FOOTER ───────────── */
+  .contact-footer {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--fg-on-dark);
+    padding: 100px 0 32px;
+    position: relative;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 80px;
+  }
+  .contact-brand h2 {
+    font-size: clamp(1.6rem, 2.6vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--fg-on-dark);
+    letter-spacing: -0.01em;
+  }
+  .contact-tag {
+    color: var(--fg-on-dark-subtle);
+    font-size: 14px;
+    margin: 0;
+  }
+  .contact-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .contact-block h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg-on-dark);
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .contact-block a,
+  .contact-block p {
+    color: var(--fg-on-dark-muted);
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .contact-block a:hover {
+    color: var(--fg-on-dark);
+    opacity: 1;
+  }
+
+  .contact-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-dark);
+    font-size: 12px;
+    color: var(--fg-on-dark-subtle);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .contact-bottom nav {
+    display: flex;
+    gap: 28px;
+  }
+  .contact-bottom a:hover {
+    color: var(--fg-on-dark);
+    opacity: 1;
+  }
+
+  @media (max-width: 920px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .contact-info {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .hero-arrow {
+      left: 32px;
+      bottom: 32px;
+    }
+  }
+</style>
